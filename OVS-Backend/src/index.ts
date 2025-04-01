@@ -1,7 +1,9 @@
 import dotenv from "dotenv";
 import express from "express";
-import { authRouter } from "./Routes/auth";
+import authRouter from "./Routes/auth";
+import electionRouter from "./Routes/election";
 import mongoose from "mongoose";
+import candidateRouter from "./Routes/candidate";
 dotenv.config();
 const app = express();
 
@@ -10,6 +12,8 @@ app.use(express.json());
 
 //Routes
 app.use("/auth", authRouter);
+app.use("/election", electionRouter);
+app.use("/candidate", candidateRouter);
 
 const StartDatabase = async () => {
   try {
@@ -19,6 +23,7 @@ const StartDatabase = async () => {
     console.log(error);
   }
 };
+
 const StartServer = async () => {
   await StartDatabase().then(() => {
     app.listen(process.env.PORT, () => {

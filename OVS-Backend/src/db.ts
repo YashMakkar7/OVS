@@ -13,7 +13,7 @@ const UserSchema = new Schema({
 })
 
 const ElectionSchema = new Schema({
-    creator: {type:mongoose.Types.ObjectId, ref:'User'},
+    creator: {type:mongoose.Types.ObjectId, ref:'User',require:true},
     title : String,
     description : String,
     startDate : Date,
@@ -21,14 +21,7 @@ const ElectionSchema = new Schema({
     createdAt : {
         type : Date,
         default : () => new Date().toISOString().split('T')[0]
-    },
-    candidates:[
-        {
-            name : String,
-            votes : {type:Number, default:0},
-            description : {type:String, default:''}
-        }
-    ]
+    }
     ,
     totalVotes : {type:Number, default:0},
     status : {type:String, enum:Status, default:'inactive'}
@@ -41,8 +34,15 @@ const VoteSchema = new Schema({
     votedAt : {type:Date}
 })
 
+const CandidateSchema = new Schema({
+    electionId : {type:mongoose.Types.ObjectId, ref:'Election'},
+    name : {type:String},
+    description : {type:String},
+    votes : {type:Number, default:0}
+})
 
 export const User = model('UserModel', UserSchema);
 export const Election = model('ElectionModel', ElectionSchema);
 export const Vote = model('VoteModel', VoteSchema);
+export const Candidate = model('CandidateModel', CandidateSchema);
 

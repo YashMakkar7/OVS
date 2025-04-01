@@ -4,6 +4,7 @@ import { z } from "zod";
 import bcrypt from "bcrypt";
 const authRouter = Router();
 import { User } from "../db";
+
 const requiredBody = z.object({
   username: z.string().min(1).max(20),
   email: z.string().email(),
@@ -15,6 +16,7 @@ const requiredBody = z.object({
     .regex(/[0-9]/, "Password must contain one Digit"),
   adharId: z.string().min(10),
 });
+
 import jwt from "jsonwebtoken";
 
 authRouter.post("/signup", async (req: Request, res: Response) => {
@@ -86,4 +88,4 @@ authRouter.get("/protected", authMiddleware, (req: Request, res: Response) => {
     })
 })
 
-export { authRouter };
+export default authRouter;

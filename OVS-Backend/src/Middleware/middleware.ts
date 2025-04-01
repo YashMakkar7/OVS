@@ -1,14 +1,9 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 
-// Define custom request interface
-interface CustomRequest extends Request {
-    userId?: string;
-}
-
 // Define the middleware with RequestHandler type
 export const authMiddleware: RequestHandler = async (
-    req: CustomRequest,
+    req: Request,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
@@ -21,7 +16,7 @@ export const authMiddleware: RequestHandler = async (
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
-        req.userId = decoded.id;
+        req.body.userId = decoded.id;
         next();
     } catch (error) {
         res.status(401).json({ msg: "Unauthorized" });
