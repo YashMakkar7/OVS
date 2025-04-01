@@ -4,6 +4,7 @@ import { z } from "zod";
 import bcrypt from "bcrypt";
 const authRouter = Router();
 import { User } from "../db";
+import jwt from "jsonwebtoken";
 
 const requiredBody = z.object({
   username: z.string().min(1).max(20),
@@ -17,7 +18,6 @@ const requiredBody = z.object({
   adharId: z.string().min(10),
 });
 
-import jwt from "jsonwebtoken";
 
 authRouter.post("/signup", async (req: Request, res: Response) => {
   const parsedBody = requiredBody.safeParse(req.body);
@@ -77,14 +77,6 @@ authRouter.post("/signin", async (req: Request, res: Response) => {
     res.json({
         msg:"Signin Successfully",
         token
-    })
-})
-
-
-authRouter.get("/protected", authMiddleware, (req: Request, res: Response) => {
-    res.json({
-        msg:"Protected Route",
-        userId:req.body.userId
     })
 })
 
