@@ -1,5 +1,4 @@
 import { Request, Response, Router } from "express";
-import { authMiddleware } from "../Middleware/middleware";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 const authRouter = Router();
@@ -17,7 +16,6 @@ const requiredBody = z.object({
     .regex(/[0-9]/, "Password must contain one Digit"),
   adharId: z.string().min(10),
 });
-
 
 authRouter.post("/signup", async (req: Request, res: Response) => {
   const parsedBody = requiredBody.safeParse(req.body);
@@ -52,32 +50,61 @@ authRouter.post("/signup", async (req: Request, res: Response) => {
 });
 
 authRouter.post("/signin", async (req: Request, res: Response) => {
-    const email = req.body.email;
-    const password = req.body.password;
+  const email = req.body.email;
+  const password = req.body.password;
 
-    const user = await User.findOne({email});
-
-    if(!user){
-        res.status(400).json({
-            msg:"Invalid Email or Password"
-        })
-        return;
+  if (email == "admin") {
+    const admin = await User.findOne({ email });
+    if (!admin) {
+      res.status(400).json({
+        msg: "Invalid Email or Password",
+      });
+      return;
     }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if(!isPasswordValid){
-        res.status(400).json({
-            msg:"Invalid Email or Password"
-        })
-        return;
+    const isPasswordValid = await bcrypt.compare(password, admin?.password);
+    if (!isPasswordValid) {
+      res.status(400).json({
+        msg: "Invalid Email or Password",
+      });
+      return;
     }
-    
-    const token = jwt.sign({id:user._id}, process.env.JWT_SECRET!, {expiresIn:"1d"});
-        
+    const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET_ADMIN!, {
+      expiresIn: "1d",
+    });
+
     res.json({
-        msg:"Signin Successfully",
-        token
-    })
-})
+      msg: "Signin Successfully",
+      token,
+    });
+
+    return;
+  }
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(400).json({
+      msg: "Invalid Email or Password",
+    });
+    return;
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    res.status(400).json({
+      msg: "Invalid Email or Password",
+    });
+    return;
+  }
+
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
+    expiresIn: "1d",
+  });
+
+  res.json({
+    msg: "Signin Successfully",
+    token,
+  });
+});
 
 export default authRouter;

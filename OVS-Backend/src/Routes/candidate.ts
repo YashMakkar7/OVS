@@ -1,11 +1,11 @@
 // Candidate Routes
 import { Router, Request, Response } from "express";
-import { authMiddleware } from "../Middleware/middleware";
+import { adminMiddleware, authMiddleware } from "../Middleware/middleware";
 import { Candidate } from "../db";
 const candidateRouter = Router();
 
 // add candidate
-candidateRouter.post("/add/:electionId",authMiddleware,async(req:Request,res:Response)=>{
+candidateRouter.post("/add/:electionId",adminMiddleware,async(req:Request,res:Response)=>{
     try { 
         const {electionId} = req.params;
         const {name,description} = req.body;
@@ -23,7 +23,7 @@ candidateRouter.post("/add/:electionId",authMiddleware,async(req:Request,res:Res
 })
 
 // get all candidates
-candidateRouter.get("/:electionId",authMiddleware,async(req:Request,res:Response)=>{
+candidateRouter.get("/:electionId",async(req:Request,res:Response)=>{
     try { 
         const {electionId} = req.params;
         const candidates = await Candidate.find({electionId});
@@ -34,7 +34,7 @@ candidateRouter.get("/:electionId",authMiddleware,async(req:Request,res:Response
 })
 
 // delete candidate
-candidateRouter.delete("/delete/:electionId/:candidateId",authMiddleware,async(req:Request,res:Response)=>{
+candidateRouter.delete("/delete/:electionId/:candidateId",adminMiddleware,async(req:Request,res:Response)=>{
     try { 
         const {electionId,candidateId} = req.params;
         const candidate = await Candidate.findOneAndDelete({_id:candidateId,electionId});

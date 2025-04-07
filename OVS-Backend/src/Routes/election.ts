@@ -1,18 +1,17 @@
 import { Router, Request, Response } from "express";
-import { authMiddleware } from "../Middleware/middleware";
+import { adminMiddleware, authMiddleware } from "../Middleware/middleware";
 import { Election , Vote , Candidate } from "../db";
 const electionRouter = Router();
 // Election Routes
 
-// protected
 // get all elections
-electionRouter.get("/",authMiddleware,async(req:Request,res:Response)=>{
+electionRouter.get("/",async(req:Request,res:Response)=>{
     const elections = await Election.find({creator:req.body.userId});
     res.status(200).json({msg:"elections",elections});
 })
 
 // create election
-electionRouter.post("/create",authMiddleware,async(req: Request, res: Response) => {
+electionRouter.post("/create",adminMiddleware,async(req: Request, res: Response) => {
     const { title, description} = req.body;
 
     try {
@@ -29,7 +28,7 @@ electionRouter.post("/create",authMiddleware,async(req: Request, res: Response) 
 );
 
 // start election
-electionRouter.put("/status/start/:electionId",authMiddleware,async(req:Request,res:Response)=>{
+electionRouter.put("/status/start/:electionId",adminMiddleware,async(req:Request,res:Response)=>{
   try { 
     const {electionId} = req.params;
     const election = await Election.findOneAndUpdate(
@@ -48,7 +47,7 @@ electionRouter.put("/status/start/:electionId",authMiddleware,async(req:Request,
 })
 
 // stop election
-electionRouter.put("/status/stop/:electionId",authMiddleware,async(req:Request,res:Response)=>{
+electionRouter.put("/status/stop/:electionId",adminMiddleware,async(req:Request,res:Response)=>{
   try { 
     const {electionId} = req.params;
     const election = await Election.findOneAndUpdate(
@@ -67,7 +66,7 @@ electionRouter.put("/status/stop/:electionId",authMiddleware,async(req:Request,r
 })
 
 // complete election
-electionRouter.put("/status/complete/:electionId",authMiddleware,async(req:Request,res:Response)=>{
+electionRouter.put("/status/complete/:electionId",adminMiddleware,async(req:Request,res:Response)=>{
   try { 
     const {electionId} = req.params;
     const election = await Election.findOneAndUpdate(
@@ -86,7 +85,7 @@ electionRouter.put("/status/complete/:electionId",authMiddleware,async(req:Reque
 })
 
 // delete election
-electionRouter.delete("/delete/:electionId",authMiddleware,async(req:Request,res:Response)=>{
+electionRouter.delete("/delete/:electionId",adminMiddleware,async(req:Request,res:Response)=>{
   try { 
     const {electionId} = req.params;
     const election = await Election.findOneAndDelete({_id:electionId,creator:req.body.userId});
@@ -101,7 +100,7 @@ electionRouter.delete("/delete/:electionId",authMiddleware,async(req:Request,res
 })
 
 // get election details with candidates
-electionRouter.get("/details/:electionId",authMiddleware,async(req:Request,res:Response)=>{
+electionRouter.get("/details/:electionId",async(req:Request,res:Response)=>{
   try {
     const {electionId} = req.params;
     const election = await Election.findOne({_id:electionId,creator:req.body.userId});
@@ -172,7 +171,7 @@ electionRouter.post("/vote/:electionId",authMiddleware,async(req:Request,res:Res
 
 
 // get election results
-electionRouter.get("/:electionId/results",authMiddleware,async(req:Request,res:Response)=>{
+electionRouter.get("/:electionId/results",async(req:Request,res:Response)=>{
   try {
     const {electionId} = req.params;
     const election = await Election.findOne({_id:electionId});
