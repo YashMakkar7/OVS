@@ -4,8 +4,16 @@ import authRouter from "./Routes/auth";
 import electionRouter from "./Routes/election";
 import mongoose from "mongoose";
 import candidateRouter from "./Routes/candidate";
+import cors from 'cors'
+import infoRouter from "./Routes/info";
+
 dotenv.config();
+
 const app = express();
+app.use(cors({
+  origin:"http://localhost:5173",
+  credentials:true
+}))
 
 //Middlewares
 app.use(express.json());
@@ -14,6 +22,7 @@ app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/election", electionRouter);
 app.use("/candidate", candidateRouter);
+app.use("/info", infoRouter);
 
 const StartDatabase = async () => {
   try {

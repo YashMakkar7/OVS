@@ -1,6 +1,6 @@
 // Candidate Routes
 import { Router, Request, Response } from "express";
-import { adminMiddleware, authMiddleware } from "../Middleware/middleware";
+import { adminMiddleware } from "../Middleware/middleware";
 import { Candidate } from "../db";
 const candidateRouter = Router();
 

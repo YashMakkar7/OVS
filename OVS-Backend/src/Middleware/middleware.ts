@@ -42,7 +42,7 @@ export const adminMiddleware: RequestHandler = async (
         req.body.userId = decoded.id;
         next();
     } catch (error) {
-        res.status(401).json({ msg: "Unauthorized" });
+        res.status(401).json({ msg: error + "from admin middleware" });
         return;
     }
 };

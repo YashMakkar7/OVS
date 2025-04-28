@@ -53,7 +53,7 @@ authRouter.post("/signin", async (req: Request, res: Response) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  if (email == "admin") {
+  if (email == "admin@gmail.com") {
     const admin = await User.findOne({ email });
     if (!admin) {
       res.status(400).json({
