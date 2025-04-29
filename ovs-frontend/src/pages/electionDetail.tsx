@@ -93,11 +93,6 @@ export default function ElectionDetail() {
     }
   };
 
-  const handlePublishResults = async () => {
-    // Empty function for backend call
-    console.log("Publishing results");
-  };
-
   return (
     <div className="flex h-screen bg-gray-50">
       <Sidebar />
@@ -156,7 +151,6 @@ export default function ElectionDetail() {
             <StatusManagement 
               currentStatus={election.status}
               onUpdateStatus={handleUpdateStatus}
-              onPublishResults={handlePublishResults}
               electionId={election._id}
             />
           </div>

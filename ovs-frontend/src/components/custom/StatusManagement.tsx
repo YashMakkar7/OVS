@@ -3,7 +3,6 @@ import { useState, useEffect, ReactNode } from 'react';
 interface StatusManagementProps {
   currentStatus: 'active' | 'upcoming' | 'completed';
   onUpdateStatus: (status: 'active' | 'upcoming' | 'completed') => void;
-  onPublishResults: () => void;
   electionId: string;
 }
 
@@ -16,8 +15,7 @@ type StatusOption = {
 
 const StatusManagement = ({ 
   currentStatus, 
-  onUpdateStatus, 
-  onPublishResults,
+  onUpdateStatus,
   electionId
 }: StatusManagementProps) => {
   const [selectedStatus, setSelectedStatus] = useState<'active' | 'upcoming' | 'completed'>(currentStatus);
@@ -119,35 +117,21 @@ const StatusManagement = ({
         })}
       </div>
       
-      <div className="flex flex-col sm:flex-row gap-4 sm:justify-between items-center p-4 bg-gray-50 rounded-lg">
-        <div className="flex-1 w-full">
-          <button
-            onClick={() => onUpdateStatus(selectedStatus)}
-            className="w-full px-4 py-3 bg-primaryblue text-white rounded-md hover:bg-blue-600 transition-colors font-medium flex items-center justify-center"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            Update Status
-          </button>
-        </div>
-        
-        <div className="flex-1 w-full">
-          <button
-            onClick={onPublishResults}
-            disabled={currentStatus !== 'completed'}
-            className={`w-full px-4 py-3 rounded-md transition-colors font-medium flex items-center justify-center ${
-              currentStatus === 'completed'
-                ? 'bg-purple-500 text-white hover:bg-purple-600'
-                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-            }`}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Publish Results
-          </button>
-        </div>
+      <div className="flex justify-center p-4 bg-gray-50 rounded-lg">
+        <button
+          onClick={() => onUpdateStatus(selectedStatus)}
+          disabled={selectedStatus === currentStatus}
+          className={`w-full max-w-md px-4 py-3 rounded-md transition-colors font-medium flex items-center justify-center ${
+            selectedStatus === currentStatus
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              : 'bg-primaryblue text-white hover:bg-blue-600'
+          }`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Update Status
+        </button>
       </div>
     </div>
   );
