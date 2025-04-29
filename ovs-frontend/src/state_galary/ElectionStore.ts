@@ -18,6 +18,7 @@ interface ElectionStore {
   addElection: (election: Election) => void;
   removeElection: (id: string) => void;
   getElections: () => Election[];
+  updateElectionStatus: (id: string, status: 'active' | 'upcoming' | 'completed') => void;
 }
 
 const useElectionStore = create<ElectionStore>()(
@@ -32,6 +33,13 @@ const useElectionStore = create<ElectionStore>()(
         elections: state.elections.filter(election => election._id !== id)
       })),
       getElections: () => get().elections,
+      updateElectionStatus: (id, status) => set((state) => ({
+        elections: state.elections.map(election => 
+          election._id === id 
+            ? { ...election, status } 
+            : election
+        )
+      })),
     }),
     {
       name: 'election-storage', // unique name for localStorage key

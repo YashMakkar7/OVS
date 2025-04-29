@@ -92,6 +92,9 @@ const CreateElectionModal = () => {
     >
       <div 
         className="bg-white w-full max-w-md mx-4 rounded-lg shadow-xl overflow-hidden"
+        style={{ 
+          animation: isOpen ? 'fadeIn 0.3s ease forwards' : 'none'
+        }}
         onClick={e => e.stopPropagation()}
       >
         <div className="bg-gradient-to-r from-primaryblue to-blue-600 text-white p-5 flex justify-between items-center">

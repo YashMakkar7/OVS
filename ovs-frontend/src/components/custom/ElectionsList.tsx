@@ -28,7 +28,6 @@ const ElectionsList = () => {
   };
 
   const handleDeleteElection = (id: string) => {
-    // Find the election to get its title for the dialog
     const election = elections.find(e => e._id === id);
     if (election) {
       openDialog(id, election.title);
