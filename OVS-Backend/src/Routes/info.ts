@@ -22,5 +22,13 @@ infoRouter.get("/admin", adminMiddleware, async (req: Request, res: Response) =>
         res.status(500).json({ success: false, error: "Failed to admin details" });
     }
 });
+infoRouter.get("/users",adminMiddleware,async(req:Request,res:Response)=>{
+    try{
+        const users = await User.find();
+        res.status(200).json({success:true,users});
+    }catch(error){
+        res.status(500).json({success:false,error:"Failed to get users"});
+    }
+})
 
 export default infoRouter;

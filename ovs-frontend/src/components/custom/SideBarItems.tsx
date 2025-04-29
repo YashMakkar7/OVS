@@ -1,4 +1,5 @@
 // SidebarItem component for individual navigation items
+
 type SidebarItemProps = {
     icon: React.ReactNode;
     label: string;

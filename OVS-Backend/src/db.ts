@@ -1,5 +1,5 @@
 import mongoose ,{Schema, model} from 'mongoose';
-const Status = ['inactive', 'active', 'completed'];
+const Status = ['upcoming', 'active', 'completed'];
 
 const UserSchema = new Schema({
     username : {type:String, required:true, unique:true},
@@ -24,7 +24,7 @@ const ElectionSchema = new Schema({
     }
     ,
     totalVotes : {type:Number, default:0},
-    status : {type:String, enum:Status, default:'inactive'}
+    status : {type:String, enum:Status, default:'upcoming'}
 })
 
 const VoteSchema = new Schema({

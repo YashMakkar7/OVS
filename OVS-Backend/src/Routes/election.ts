@@ -5,10 +5,20 @@ const electionRouter = Router();
 // Election Routes
 
 // get all elections
-electionRouter.get("/",async(req:Request,res:Response)=>{
-    const elections = await Election.find({creator:req.body.userId});
-    res.status(200).json({msg:"elections",elections});
-})
+electionRouter.get("/", async (req: Request, res: Response) => {
+    try {
+        const elections = await Election.find({});
+        res.status(200).json({ 
+            success: true,
+            elections 
+        });
+    } catch (error) {
+        res.status(500).json({ 
+            success: false,
+            error: "Failed to fetch elections" 
+        });
+    }
+});
 
 // create election
 electionRouter.post("/create",adminMiddleware,async(req: Request, res: Response) => {
@@ -47,12 +57,12 @@ electionRouter.put("/status/start/:electionId",adminMiddleware,async(req:Request
 })
 
 // stop election
-electionRouter.put("/status/stop/:electionId",adminMiddleware,async(req:Request,res:Response)=>{
+electionRouter.put("/status/upcoming/:electionId",adminMiddleware,async(req:Request,res:Response)=>{
   try { 
     const {electionId} = req.params;
     const election = await Election.findOneAndUpdate(
         {_id:electionId,creator:req.body.userId},
-        {status:"inactive"},
+        {status:"upcoming"},
         {new:true}
     );
     if(!election){

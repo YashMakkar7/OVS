@@ -1,44 +1,48 @@
-import React from 'react';
+
 import DashboardCard from './DashboardCard';
-import { CalendarIcon, UserIcon, CheckIcon, BoltIcon } from '@heroicons/react/24/outline';
+import { CalendarIcon, UserIcon, CheckIcon, BoltIcon } from '@heroicons/react/24/solid';
 
-// Mock data - Replace with actual API calls later
-const statsData = {
-  totalElections: 24,
-  activeElections: 5,
-  totalVoters: 1250,
-  votesCast: 458,
-  upcomingElections: 3
-};
+interface DashboardData {
+  totalElections: number;
+  activeElections: number;
+  totalVoters: number;
+  votesCast: number;
+  upcomingElections: number;
+  completedElections?: number;
+}
 
-const StatsCards = () => {
+interface StatsCardsProps {
+  data: DashboardData;
+}
+
+const StatsCards = ({ data }: StatsCardsProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <DashboardCard 
         title="Total Elections Created" 
-        value={statsData.totalElections}
+        value={data.totalElections}
         icon={<CalendarIcon className="h-6 w-6" />}
       />
       <DashboardCard 
         title="Active Elections" 
-        value={statsData.activeElections}
+        value={data.activeElections}
         icon={<BoltIcon className="h-6 w-6" />}
         className="bg-blue-50"
       />
       <DashboardCard 
         title="Total Voters Registered" 
-        value={statsData.totalVoters}
+        value={data.totalVoters}
         icon={<UserIcon className="h-6 w-6" />}
       />
       <DashboardCard 
         title="Votes Cast So Far" 
-        value={statsData.votesCast}
+        value={data.votesCast}
         icon={<CheckIcon className="h-6 w-6" />}
         className="bg-green-50"
       />
       <DashboardCard 
         title="Upcoming Elections" 
-        value={statsData.upcomingElections}
+        value={data.upcomingElections}
         icon={<CalendarIcon className="h-6 w-6" />}
         className="bg-yellow-50"
       />

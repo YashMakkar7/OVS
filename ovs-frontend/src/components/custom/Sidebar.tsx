@@ -52,7 +52,7 @@ const Sidebar = () => {
         {
             icon: <Vote size={20} />,
             label: 'Elections',
-            path: '/dashboard/elections'
+            path: '/election'
         },
         {
             icon: <Users size={20} />,
