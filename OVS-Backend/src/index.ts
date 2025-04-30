@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import candidateRouter from "./Routes/candidate";
 import cors from 'cors'
 import infoRouter from "./Routes/info";
+import voteRouter from "./Routes/vote";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use("/auth", authRouter);
 app.use("/election", electionRouter);
 app.use("/candidate", candidateRouter);
 app.use("/info", infoRouter);
+app.use("/vote", voteRouter);
 
 const StartDatabase = async () => {
   try {

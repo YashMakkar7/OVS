@@ -42,6 +42,7 @@ authRouter.post("/signup", async (req: Request, res: Response) => {
     res.status(500).json({
       msg: "Signup Failed",
     });
+    return;
   }
 
   res.json({

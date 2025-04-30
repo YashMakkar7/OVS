@@ -126,10 +126,10 @@ electionRouter.get("/details/:electionId",async(req:Request,res:Response)=>{
 })
 
 // cast a vote
-electionRouter.post("/vote/:electionId",authMiddleware,async(req:Request,res:Response)=>{
+electionRouter.post("/vote/:electionId/:candidateId",authMiddleware,async(req:Request,res:Response)=>{
   try {
     const {electionId} = req.params;
-    const {candidateId} = req.body;
+    const {candidateId} = req.params;
     const election = await Election.findOne({_id:electionId});
     if(!election){
         res.status(404).json({msg:"election not found"});
@@ -154,11 +154,11 @@ electionRouter.post("/vote/:electionId",authMiddleware,async(req:Request,res:Res
         return;
     }
 
-    // create a vote record
+    // create a vote record with candidate name
     await Vote.create({
         electionId,
         userId:req.body.userId,
-        candidateId,
+        candidateName: candidate.name,
         votedAt:new Date()
     })
 

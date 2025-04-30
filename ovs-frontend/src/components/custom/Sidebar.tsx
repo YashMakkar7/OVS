@@ -57,7 +57,7 @@ const Sidebar = () => {
         {
             icon: <Users size={20} />,
             label: 'Voters',
-            path: '/dashboard/voters'
+            path: '/voters'
         },
         {
             icon: <BarChart3 size={20} />,

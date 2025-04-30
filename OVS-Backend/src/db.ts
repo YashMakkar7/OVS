@@ -30,8 +30,8 @@ const ElectionSchema = new Schema({
 const VoteSchema = new Schema({
     electionId : {type:mongoose.Types.ObjectId, ref:'Election'},
     userId : {type:mongoose.Types.ObjectId, ref:'User'},
-    candidateName : {type:String},
-    votedAt : {type:Date}
+    votedAt : {type:Date},
+    candidateName: {type:String, required:true}
 })
 
 const CandidateSchema = new Schema({
