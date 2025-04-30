@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Sidebar from "../components/custom/Sidebar";
 import StatusManagement from "../components/custom/StatusManagement";
+import CandidateManagement from "../components/custom/CandidateManagement";
 import useElectionStore from "../state_galary/ElectionStore";
 import { ArrowLeft } from "lucide-react";
 import axios from "axios";
@@ -152,6 +153,11 @@ export default function ElectionDetail() {
               currentStatus={election.status}
               onUpdateStatus={handleUpdateStatus}
               electionId={election._id}
+            />
+            
+            <CandidateManagement 
+              electionId={election._id}
+              electionStatus={election.status}
             />
           </div>
         )}
