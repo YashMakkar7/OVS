@@ -1,21 +1,21 @@
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
-import Sidebar from "../components/custom/Sidebar";
-import StatsCards from "../components/custom/StatsCards";
-import ElectionChart from "../components/custom/ElectionChart";
-import UpcomingElectionsList from "../components/custom/UpcomingElectionsList";
-import ActiveElectionsCard from "../components/custom/ActiveElectionsCard";
+import Sidebar from "../../components/custom/Sidebar";
+import StatsCards from "../../components/custom/StatsCards";
+import ElectionChart from "../../components/custom/ElectionChart";
+import UpcomingElectionsList from "../../components/custom/UpcomingElectionsList";
+import ActiveElectionsCard from "../../components/custom/ActiveElectionsCard";
 
 //store imports
-import useDashboardStore from "../state_galary/dashboardStore";
-import useElectionStore from "../state_galary/ElectionStore";
-import useUsersStore from "../state_galary/UsersStore";
+import useDashboardStore from "../../state_galary/dashboardStore";
+import useElectionStore from "../../state_galary/ElectionStore";
+import useUsersStore from "../../state_galary/UsersStore";
 
 // skeleton loaders
-import StatsCardSkeleton from "../components/custom/StatsCardSkeleton";
-import ElectionChartSkeleton from "../components/custom/ElectionChartSkeleton";
-import UpcomingElectionsListSkeleton from "../components/custom/UpcomingElectionsListSkeleton";
-import ActiveElectionsCardSkeleton from "../components/custom/ActiveElectionsCardSkeleton";
+import StatsCardSkeleton from "../../components/custom/StatsCardSkeleton";
+import ElectionChartSkeleton from "../../components/custom/ElectionChartSkeleton";
+import UpcomingElectionsListSkeleton from "../../components/custom/UpcomingElectionsListSkeleton";
+import ActiveElectionsCardSkeleton from "../../components/custom/ActiveElectionsCardSkeleton";
 
 interface Election {
   _id: string;

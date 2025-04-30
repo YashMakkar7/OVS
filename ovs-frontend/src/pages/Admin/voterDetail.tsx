@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Sidebar from "../components/custom/Sidebar";
-import useUserStore from "../state_galary/UserStore";
-import useElectionStore from "../state_galary/ElectionStore";
+import Sidebar from "../../components/custom/Sidebar";
+import useUserStore from "../../state_galary/UserStore";
+import useElectionStore from "../../state_galary/ElectionStore";
 import { ArrowLeft, Mail, Calendar, CreditCard, CheckCircle, Clock, Vote, XCircle } from "lucide-react";
 import axios from "axios";
 

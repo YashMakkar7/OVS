@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../components/custom/Sidebar";
-import UserCard from "../components/custom/UserCard";
-import useUserStore from "../state_galary/UserStore";
+import Sidebar from "../../components/custom/Sidebar";
+import UserCard from "../../components/custom/UserCard";
+import useUserStore from "../../state_galary/UserStore";
 import { Search, AlertCircle, X, Users } from "lucide-react";
 import axios from "axios";
 

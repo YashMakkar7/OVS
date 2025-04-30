@@ -1,16 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './pages/home'
-import Dashboard from './pages/dashboard'
-import Election from './pages/election'
-import ElectionDetail from './pages/electionDetail'
-import Voters from './pages/voters'
-import VoterDetail from './pages/voterDetail'
+import Home from './pages/Admin/home'
+import Election from './pages/Admin/election'
+import ElectionDetail from './pages/Admin/electionDetail'
+import Voters from './pages/Admin/voters'
+import VoterDetail from './pages/Admin/voterDetail'
+import Dashboard from './pages/Admin/Dashboard'
 
 function App() {
   return <Router>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      {/* Admin Routes */}
+      <Route path="/AdminDashboard" element={<Dashboard />} />
       <Route path="/election" element={<Election />} />
       <Route path="/voters" element={<Voters />} />
       <Route path="/election/:id" element={<ElectionDetail />} />

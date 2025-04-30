@@ -35,7 +35,11 @@ export default function SigninModel({ open, onClose }: { open: boolean, onClose:
             setTimeout(() => {
                 onClose();
                 setShowSuccess(false);
-                navigate("/dashboard");
+                if(email ==='admin@gmail.com'){
+                    navigate("/AdminDashboard");
+                }else{
+                    navigate("/dashboard")
+                }
             }, 1000);
         }catch(e: any){
             console.log(e);

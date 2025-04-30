@@ -1,7 +1,7 @@
-import Sidebar from "../components/custom/Sidebar";
-import ElectionsList from "../components/custom/ElectionsList";
-import CreateElectionButton from "../components/custom/CreateElectionButton";
-import CreateElectionModal from "../components/custom/CreateElectionModal";
+import Sidebar from "../../components/custom/Sidebar";
+import ElectionsList from "../../components/custom/ElectionsList";
+import CreateElectionButton from "../../components/custom/CreateElectionButton";
+import CreateElectionModal from "../../components/custom/CreateElectionModal";
 
 export default function Election() {
     return (

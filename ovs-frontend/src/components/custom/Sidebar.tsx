@@ -4,8 +4,6 @@ import {
     Users,
     BarChart3,
     FileText,
-    Settings,
-    HelpCircle,
     LogOut
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -47,7 +45,7 @@ const Sidebar = () => {
         {
             icon: <LayoutDashboard size={20} />,
             label: 'Dashboard',
-            path: '/dashboard'
+            path: '/AdminDashboard'
         },
         {
             icon: <Vote size={20} />,
@@ -62,22 +60,12 @@ const Sidebar = () => {
         {
             icon: <BarChart3 size={20} />,
             label: 'Analytics',
-            path: '/dashboard/analytics'
+            path: '/analytics'
         },
         {
             icon: <FileText size={20} />,
-            label: 'Reports',
-            path: '/dashboard/reports'
-        },
-        {
-            icon: <Settings size={20} />,
-            label: 'Settings',
-            path: '/dashboard/settings'
-        },
-        {
-            icon: <HelpCircle size={20} />,
-            label: 'Help & Support',
-            path: '/dashboard/support'
+            label: 'Query',
+            path: '/query'
         },
     ];
 
