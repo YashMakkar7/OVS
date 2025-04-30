@@ -5,6 +5,7 @@ import ElectionDetail from './pages/Admin/electionDetail'
 import Voters from './pages/Admin/voters'
 import VoterDetail from './pages/Admin/voterDetail'
 import Dashboard from './pages/Admin/Dashboard'
+import Vote from './pages/User/Vote'
 
 function App() {
   return <Router>
@@ -16,6 +17,10 @@ function App() {
       <Route path="/voters" element={<Voters />} />
       <Route path="/election/:id" element={<ElectionDetail />} />
       <Route path="/voter/:id" element={<VoterDetail />} />
+
+      {/* user Route */}
+      <Route path="/vote" element={<Vote />} />
+
     </Routes>
   </Router>
 }

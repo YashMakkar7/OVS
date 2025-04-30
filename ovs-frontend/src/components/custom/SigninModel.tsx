@@ -38,7 +38,7 @@ export default function SigninModel({ open, onClose }: { open: boolean, onClose:
                 if(email ==='admin@gmail.com'){
                     navigate("/AdminDashboard");
                 }else{
-                    navigate("/dashboard")
+                    navigate("/vote")
                 }
             }, 1000);
         }catch(e: any){
