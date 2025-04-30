@@ -59,13 +59,8 @@ const Sidebar = () => {
         },
         {
             icon: <BarChart3 size={20} />,
-            label: 'Analytics',
-            path: '/analytics'
-        },
-        {
-            icon: <FileText size={20} />,
-            label: 'Query',
-            path: '/query'
+            label: 'Result',
+            path: '/result'
         },
     ];
 

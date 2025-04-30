@@ -8,6 +8,9 @@ import Dashboard from './pages/Admin/Dashboard'
 import Vote from './pages/User/Vote'
 import VoteDetail from './pages/User/VoteDetail'
 import UserDashboardPlus from './pages/User/UserDashboard'
+import Results from './pages/common/results'
+import ResultDetail from './pages/common/ResultDetail'
+
 function App() {
   return <Router>
     <Routes>
@@ -18,7 +21,11 @@ function App() {
       <Route path="/voters" element={<Voters />} />
       <Route path="/election/:id" element={<ElectionDetail />} />
       <Route path="/voter/:id" element={<VoterDetail />} />
-
+      
+      {/* Result Routes */}
+      <Route path="/result" element={<Results />} />
+      <Route path="/result/:id" element={<ResultDetail />} />
+      
       {/* user Route */}
       <Route path="/vote" element={<Vote />} />
       <Route path="/vote/:id" element={<VoteDetail />} />
