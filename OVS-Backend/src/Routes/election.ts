@@ -98,12 +98,21 @@ electionRouter.put("/status/complete/:electionId",adminMiddleware,async(req:Requ
 electionRouter.delete("/delete/:electionId",adminMiddleware,async(req:Request,res:Response)=>{
   try { 
     const {electionId} = req.params;
+    
+    // First delete related votes
+    await Vote.deleteMany({electionId});
+    
+    // Then delete related candidates
+    await Candidate.deleteMany({electionId});
+    
+    // Finally delete the election
     const election = await Election.findOneAndDelete({_id:electionId,creator:req.body.userId});
+    
     if(!election){
         res.status(404).json({msg:"election not found"});
         return;
     }
-    res.status(200).json({msg:"election deleted"});
+    res.status(200).json({msg:"election and all related data deleted"});
   } catch (e) {
     res.status(500).json({msg:"unable to delete election"});
   }
