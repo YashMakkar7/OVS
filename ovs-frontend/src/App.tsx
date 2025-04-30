@@ -7,7 +7,7 @@ import VoterDetail from './pages/Admin/voterDetail'
 import Dashboard from './pages/Admin/Dashboard'
 import Vote from './pages/User/Vote'
 import VoteDetail from './pages/User/VoteDetail'
-
+import UserDashboardPlus from './pages/User/UserDashboard'
 function App() {
   return <Router>
     <Routes>
@@ -22,6 +22,7 @@ function App() {
       {/* user Route */}
       <Route path="/vote" element={<Vote />} />
       <Route path="/vote/:id" element={<VoteDetail />} />
+      <Route path="/dashboard/:id" element={<UserDashboardPlus />} />
 
     </Routes>
   </Router>

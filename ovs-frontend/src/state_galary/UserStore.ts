@@ -36,6 +36,8 @@ interface UserStore {
   searchUsers: (term: string) => void;
   setSelectedUser: (user: User | null) => void;
   fetchUserVotingHistory: (userId: string) => Promise<void>;
+  fetchAdminUserVotingHistory: (userId: string) => Promise<void>;
+  fetchOwnVotingHistory: () => Promise<void>;
   clearSelectedUser: () => void;
 }
 
@@ -140,11 +142,23 @@ const useUserStore = create<UserStore>()(
         });
         
         if (user) {
-          get().fetchUserVotingHistory(user._id);
+          // Try admin endpoint first, if it fails, fallback to user endpoint
+          get().fetchAdminUserVotingHistory(user._id).catch(() => {
+            get().fetchOwnVotingHistory();
+          });
         }
       },
       
       fetchUserVotingHistory: async (userId) => {
+        // Try admin endpoint first, if it fails, fallback to user endpoint
+        try {
+          await get().fetchAdminUserVotingHistory(userId);
+        } catch (error) {
+          await get().fetchOwnVotingHistory();
+        }
+      },
+      
+      fetchAdminUserVotingHistory: async (userId) => {
         set(state => ({
           selectedUser: {
             ...state.selectedUser,
@@ -153,7 +167,7 @@ const useUserStore = create<UserStore>()(
         }));
         
         try {
-          // Fetch the user's voting history using the admin endpoint
+          // Use the admin endpoint to get voting history for a specific user
           const response = await axios.get(`http://localhost:3000/vote/history/${userId}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -170,7 +184,44 @@ const useUserStore = create<UserStore>()(
             }));
           }
         } catch (error) {
-          console.error("Error fetching user voting history:", error);
+          console.error("Error fetching admin user voting history:", error);
+          set(state => ({
+            selectedUser: {
+              ...state.selectedUser,
+              isLoading: false
+            }
+          }));
+          throw error; // Rethrow for fallback handling
+        }
+      },
+      
+      fetchOwnVotingHistory: async () => {
+        set(state => ({
+          selectedUser: {
+            ...state.selectedUser,
+            isLoading: true
+          }
+        }));
+        
+        try {
+          // Use the user endpoint to get own voting history
+          const response = await axios.get(`http://localhost:3000/vote/myhistory`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          });
+          
+          if (response.data && response.data.votingHistory) {
+            set(state => ({
+              selectedUser: {
+                ...state.selectedUser,
+                votingHistory: response.data.votingHistory,
+                isLoading: false
+              }
+            }));
+          }
+        } catch (error) {
+          console.error("Error fetching own voting history:", error);
           set(state => ({
             selectedUser: {
               ...state.selectedUser,

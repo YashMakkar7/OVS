@@ -38,6 +38,7 @@ infoRouter.get("/user", authMiddleware, async (req: Request, res: Response) => {
             username: user.username,
             email: user.email,
             adharId: user.adharId,
+            userId:req.body.userId
         });
     } catch (error) {
         res.status(500).json({ success: false, error: "Failed to get user details" });

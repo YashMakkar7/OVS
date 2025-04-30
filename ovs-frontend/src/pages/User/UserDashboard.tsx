@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Sidebar from "../../components/custom/Sidebar";
+
 import useUserStore from "../../state_galary/UserStore";
 import useElectionStore from "../../state_galary/ElectionStore";
 import { ArrowLeft, Mail, Calendar, CreditCard, CheckCircle, Clock, Vote, XCircle } from "lucide-react";
 import axios from "axios";
-
-export default function VoterDetail() {
+import UserSidebar from "@/components/custom/UserSidebar";
+export default function UserDashboardPlus() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { 
     users, 
     selectedUser, 
     setSelectedUser, 
-    fetchAdminUserVotingHistory 
+    fetchOwnVotingHistory 
   } = useUserStore();
   const { elections, getElections } = useElectionStore();
   const [totalElections, setTotalElections] = useState(0);
@@ -26,7 +26,7 @@ export default function VoterDetail() {
         setSelectedUser(user);
       } else {
         // User not found in store, navigate back to voters list
-        navigate('/voters');
+        navigate('/vote');
       }
     }
   }, [id, users, selectedUser.user, setSelectedUser, navigate]);
@@ -63,18 +63,43 @@ export default function VoterDetail() {
   // Set up auto-refresh of voting history
   useEffect(() => {
     if (id) {
+      // Get user info first if not already loaded
+      if (!selectedUser.user) {
+        // Try to fetch user info
+        axios.get('http://localhost:3000/info/user', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        })
+        .then(response => {
+          const userData = response.data;
+          if (userData) {
+            setSelectedUser({
+              _id: userData.userId,
+              username: userData.username,
+              email: userData.email,
+              adharId: userData.adharId || userData.aadharId || '',
+              createdAt: userData.createdAt || new Date().toISOString()
+            });
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching user data:", error);
+        });
+      }
+      
       // Initial fetch
-      fetchAdminUserVotingHistory(id);
+      fetchOwnVotingHistory();
       
       // Set up auto-refresh every 30 seconds
       const refreshInterval = setInterval(() => {
-        fetchAdminUserVotingHistory(id);
+        fetchOwnVotingHistory();
       }, 30000);
       
       // Clean up on unmount
       return () => clearInterval(refreshInterval);
     }
-  }, [id, fetchAdminUserVotingHistory]);
+  }, [id, fetchOwnVotingHistory, selectedUser.user, setSelectedUser]);
 
   // Generate a unique, deterministic color based on the username
   const getProfileColor = (username: string) => {
@@ -141,7 +166,7 @@ export default function VoterDetail() {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <Sidebar />
+      <UserSidebar />
       <div className="flex-1 overflow-auto p-6">
         <button 
           onClick={() => navigate('/voters')}

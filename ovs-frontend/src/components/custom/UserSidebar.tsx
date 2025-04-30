@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect , useState} from 'react';
 import useUserInfoStore from '../../state_galary/userInfoModel';
 import SidebarItem from './SideBarItems';
 
@@ -14,6 +14,7 @@ import SidebarItem from './SideBarItems';
 const UserSidebar = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const [id,setId] = useState("")
     const { name, email, avatar, adharId, setUserInfo } = useUserInfoStore();
     useEffect(() => {
         const fetchUserInfo = async () => {
@@ -23,7 +24,8 @@ const UserSidebar = () => {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 });
-                
+                const id = response.data.userId;
+                setId(id)
                 const name = response.data.username || '';
                 const avatar = name && name.length > 0 ? name[0].toUpperCase() : '';
                 const email = response.data.email || '';
@@ -48,7 +50,7 @@ const UserSidebar = () => {
         {
             icon: <LayoutDashboard size={20} />,
             label: 'Dashboard',
-            path: '/dashboard'
+            path: `/dashboard/${id}`
         },
         {
             icon: <Vote size={20} />,
