@@ -3,7 +3,6 @@ import {
     Vote,
     Users,
     BarChart3,
-    FileText,
     LogOut
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';

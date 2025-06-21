@@ -1,4 +1,3 @@
-import React from 'react';
 
 const StatsCardSkeleton = () => {
   // Create an array of 5 items for 5 cards

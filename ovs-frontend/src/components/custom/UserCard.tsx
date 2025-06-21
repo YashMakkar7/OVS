@@ -1,5 +1,5 @@
 import { User } from "../../state_galary/UserStore";
-import { Calendar, Mail, CreditCard, User as UserIcon, CheckCircle } from "lucide-react";
+import { Calendar, Mail, CreditCard, CheckCircle } from "lucide-react";
 
 interface UserCardProps {
   user: User;

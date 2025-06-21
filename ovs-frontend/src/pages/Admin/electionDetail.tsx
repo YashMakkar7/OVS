@@ -22,6 +22,7 @@ export default function ElectionDetail() {
   const { getElections, updateElectionStatus } = useElectionStore();
   const [election, setElection] = useState<Election | null>(null);
   const [loading, setLoading] = useState(true);
+  // @ts-ignore
   const [updateLoading, setUpdateLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

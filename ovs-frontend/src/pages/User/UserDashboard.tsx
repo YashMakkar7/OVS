@@ -15,7 +15,7 @@ export default function UserDashboardPlus() {
     setSelectedUser, 
     fetchOwnVotingHistory 
   } = useUserStore();
-  const { elections, getElections } = useElectionStore();
+  const { getElections } = useElectionStore();
   const [totalElections, setTotalElections] = useState(0);
 
   useEffect(() => {

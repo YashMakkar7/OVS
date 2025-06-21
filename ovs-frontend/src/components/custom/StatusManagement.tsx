@@ -16,7 +16,6 @@ type StatusOption = {
 const StatusManagement = ({ 
   currentStatus, 
   onUpdateStatus,
-  electionId
 }: StatusManagementProps) => {
   const [selectedStatus, setSelectedStatus] = useState<'active' | 'upcoming' | 'completed'>(currentStatus);
 

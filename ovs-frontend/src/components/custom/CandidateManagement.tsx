@@ -13,7 +13,7 @@ interface CandidateFormData {
 }
 
 const CandidateManagement = ({ electionId, electionStatus }: CandidateManagementProps) => {
-  const { getCandidates, fetchCandidates, addMultipleCandidates, deleteCandidate } = useCandidateStore();
+  const { fetchCandidates, addMultipleCandidates, deleteCandidate } = useCandidateStore();
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

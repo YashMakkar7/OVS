@@ -35,6 +35,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false); // Start as false to use cached data immediately
   const [refreshing, setRefreshing] = useState(false); // For background refresh
   const [error, setError] = useState<string | null>(null);
+  //@ts-ignore
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
 
   // Function to fetch fresh data from API

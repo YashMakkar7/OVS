@@ -15,7 +15,7 @@ export default function VoterDetail() {
     setSelectedUser, 
     fetchAdminUserVotingHistory 
   } = useUserStore();
-  const { elections, getElections } = useElectionStore();
+  const {getElections } = useElectionStore();
   const [totalElections, setTotalElections] = useState(0);
 
   useEffect(() => {

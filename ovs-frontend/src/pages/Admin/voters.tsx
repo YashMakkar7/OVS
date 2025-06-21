@@ -26,6 +26,7 @@ export default function Voters() {
   } = useUserStore();
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const [votingStats, setVotingStats] = useState<VotingStats>({});
+  //@ts-ignore
   const [statsLoading, setStatsLoading] = useState(false);
 
   useEffect(() => {

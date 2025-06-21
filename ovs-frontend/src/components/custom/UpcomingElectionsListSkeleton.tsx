@@ -1,5 +1,3 @@
-import React from 'react';
-
 const UpcomingElectionsListSkeleton = () => {
   // Create array for 3 skeleton items
   const skeletonItems = Array(3).fill(0);

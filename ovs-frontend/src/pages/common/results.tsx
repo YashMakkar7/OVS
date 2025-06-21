@@ -4,7 +4,7 @@ import UserSidebar from "@/components/custom/UserSidebar"
 import AdminSidebar from "@/components/custom/Sidebar"
 import useElectionStore, { Election } from "@/state_galary/ElectionStore"
 import axios from "axios"
-import { AlignJustify, Calendar, ChevronLeft, ChevronRight, Users, Vote } from "lucide-react"
+import { AlignJustify, Calendar, ChevronRight, Users} from "lucide-react"
 
 export default function Results() {
   const { setElections } = useElectionStore()
