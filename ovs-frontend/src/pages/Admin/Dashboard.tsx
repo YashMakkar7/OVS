@@ -4,7 +4,7 @@ import Sidebar from "../../components/custom/Sidebar";
 import StatsCards from "../../components/custom/StatsCards";
 import ElectionChart from "../../components/custom/ElectionChart";
 import UpcomingElectionsList from "../../components/custom/UpcomingElectionsList";
-import ActiveElectionsCard from "../../components/custom/ActiveElectionsCard";
+// import ActiveElectionsCard from "../../components/custom/ActiveElectionsCard";
 
 //store imports
 import useDashboardStore from "../../state_galary/dashboardStore";
@@ -15,7 +15,7 @@ import useUsersStore from "../../state_galary/UsersStore";
 import StatsCardSkeleton from "../../components/custom/StatsCardSkeleton";
 import ElectionChartSkeleton from "../../components/custom/ElectionChartSkeleton";
 import UpcomingElectionsListSkeleton from "../../components/custom/UpcomingElectionsListSkeleton";
-import ActiveElectionsCardSkeleton from "../../components/custom/ActiveElectionsCardSkeleton";
+// import ActiveElectionsCardSkeleton from "../../components/custom/ActiveElectionsCardSkeleton";
 
 interface Election {
   _id: string;
@@ -35,7 +35,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false); // Start as false to use cached data immediately
   const [refreshing, setRefreshing] = useState(false); // For background refresh
   const [error, setError] = useState<string | null>(null);
-  //@ts-ignore
+  //ts-ignore
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
 
   // Function to fetch fresh data from API
@@ -146,22 +146,13 @@ export default function Dashboard() {
           {loading ? <StatsCardSkeleton /> : <StatsCards data={statsData} />}
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-3">
               {loading ? (
                 <ElectionChartSkeleton />
               ) : (
                 <ElectionChart
                   title="Election Statistics"
                   data={electionChartData}
-                />
-              )}
-            </div>
-            <div>
-              {loading ? (
-                <ActiveElectionsCardSkeleton />
-              ) : (
-                <ActiveElectionsCard
-                  elections={getElections()}
                 />
               )}
             </div>

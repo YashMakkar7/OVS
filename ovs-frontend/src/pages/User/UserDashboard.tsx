@@ -160,7 +160,7 @@ export default function UserDashboardPlus() {
       
       return `${formattedDate} at ${formattedTime}`;
     } catch (e) {
-      return "Invalid date";
+      return "Invalid date"+e;
     }
   };
 

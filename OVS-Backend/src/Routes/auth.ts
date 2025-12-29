@@ -30,7 +30,7 @@ authRouter.post("/signup", async (req: Request, res: Response) => {
 
   const { username, email, password, adharId } = parsedBody.data;
   const hashedPassword = await bcrypt.hash(password, 3);
-
+  console.log(hashedPassword)
   try {
     await User.create({
       username,
