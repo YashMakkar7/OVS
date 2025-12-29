@@ -30,7 +30,7 @@ Allows administrators to manage elections, candidates, users, and monitor voting
 | **State Management** | Zustand |
 | **Backend** | Node.js (TypeScript), Express.js |
 | **Database** | MongoDB |
-| **Charts & Visualization** | Chart.js / Recharts / D3.js |
+| **Charts & Visualization** | Chart.js |
 | **Authentication** | JWT (JSON Web Tokens) |
 
 ---
